@@ -265,22 +265,264 @@
         
         .sticky-cta {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: 0;
+            left: 0;
+            right: 0;
             z-index: 900;
-            animation: slideUp 0.5s ease-out;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.3s ease;
+            background: white;
+            border-top: 2px solid var(--primary);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: none;
         }
         
         .sticky-cta.show {
-            opacity: 1;
             transform: translateY(0);
+            display: block;
         }
         
         .sticky-cta.wiggle {
             animation: wiggle 0.8s ease-in-out;
+        }
+        
+        .sticky-cta-content {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .sticky-cta-content .btn {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: var(--radius);
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-cta .cta-call {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .sticky-cta .cta-call:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .sticky-cta .cta-estimate {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .sticky-cta .cta-estimate:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .sticky-cta-close {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: var(--text-light);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .sticky-cta-close:hover {
+            opacity: 1;
+        }
+        
+        /* Hide sticky CTA on desktop */
+        @media (min-width: 768px) {
+            .sticky-cta {
+                display: none !important;
+            }
+        }
+        
+        /* Exit-Intent Modal */
+        .exit-intent-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            display: none;
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        .exit-intent-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+        }
+        
+        .modal-content {
+            position: relative;
+            background: white;
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            animation: modalSlideIn 0.3s ease forwards;
+        }
+        
+        @keyframes modalSlideIn {
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: var(--bg-gray);
+        }
+        
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+        
+        .modal-header h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .modal-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .urgency-offer {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .offer-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .urgency-offer h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .offer-benefits {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        
+        .offer-benefits li {
+            padding: 0.25rem 0;
+            color: var(--text);
+        }
+        
+        .exit-intent-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .exit-intent-form input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .exit-intent-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .modal-submit {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        
+        .privacy-note {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-align: center;
+            margin: 0;
         }
         
         @keyframes slideUp {
@@ -766,6 +1008,213 @@
                 opacity: 1; 
                 transform: translateY(0) scale(1); 
             }
+        }
+        
+        /* NEW GATED ESTIMATOR STYLES */
+        .estimator-gate {
+            background: var(--bg-gray);
+            border: 2px dashed var(--primary);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            animation: pulse-border 2s infinite;
+        }
+        
+        @keyframes pulse-border {
+            0%, 100% { border-color: var(--primary); }
+            50% { border-color: var(--secondary); }
+        }
+        
+        .gate-message h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .gate-message p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .consent-checkbox {
+            margin-top: 1rem;
+            text-align: left;
+        }
+        
+        .consent-checkbox label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .consent-checkbox input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            margin: 0;
+            flex-shrink: 0;
+        }
+        
+        .consent-checkbox input[type="checkbox"]:checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .consent-checkbox input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* ENHANCED ESTIMATE RESULT STYLES */
+        .estimate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .estimate-header h3 {
+            margin: 0;
+            color: white;
+        }
+        
+        .estimate-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .estimate-actions .btn {
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+        }
+        
+        .estimate-actions .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .estimate-actions .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .estimate-upsells {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .estimate-upsells h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .upsell-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .upsell-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upsell-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .upsell-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+        }
+        
+        .upsell-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .upsell-price {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .upsell-total {
+            text-align: center;
+            font-size: 1.2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius);
+        }
+        
+        .maintenance-promotion {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .maintenance-promotion h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .savings-comparison {
+            margin: 1rem 0;
+        }
+        
+        .comparison-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .comparison-item.highlighted {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            border: none;
+            margin: 0.5rem 0;
+        }
+        
+        .price.pay-per-service {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .savings {
+            color: var(--accent);
+            font-weight: bold;
+            margin-left: 1rem;
         }
         
         /* Confetti effect */
@@ -1920,6 +2369,10 @@
                         <div class="step-circle" data-step="4">4</div>
                         <span>Timeline</span>
                     </div>
+                    <div class="estimator-step">
+                        <div class="step-circle" data-step="5">5</div>
+                        <span>Contact</span>
+                    </div>
                 </div>
                 
                 <div class="estimator-progress">
@@ -1965,17 +2418,114 @@
                     </select>
                 </div>
                 
+                <!-- GATED CONTACT SECTION - Required before showing estimate -->
+                <div class="estimator-gate" id="estimator-gate" style="display: none;">
+                    <div class="gate-message">
+                        <h3>Get Your Instant Estimate</h3>
+                        <p>Enter your contact information to receive your personalized cost estimate and a detailed PDF quote.</p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estimator-name">Full Name *</label>
+                            <input type="text" id="estimator-name" name="estimatorName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="estimator-email">Email Address *</label>
+                            <input type="email" id="estimator-email" name="estimatorEmail" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estimator-phone">Phone Number</label>
+                            <input type="tel" id="estimator-phone" name="estimatorPhone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="estimator-company">Company (Optional)</label>
+                            <input type="text" id="estimator-company" name="estimatorCompany">
+                        </div>
+                    </div>
+                    
+                    <div class="consent-checkbox">
+                        <label>
+                            <input type="checkbox" id="estimator-consent" required>
+                            <span class="checkmark"></span>
+                            I agree to receive my estimate and follow-up communications via email and phone. View our <a href="#privacy" target="_blank">Privacy Policy</a>.
+                        </label>
+                    </div>
+                </div>
+                
                 <div class="estimate-summary" id="estimate-summary">
                     <div class="summary-content" id="summary-content">
                         Complete the form above to see your project summary
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Calculate Estimate</button>
+                <button type="submit" class="btn btn-primary" id="calculate-btn">Calculate Estimate</button>
                 
                 <div class="estimate-result" id="estimate-result">
+                    <div class="estimate-header">
+                        <h3>Your Personalized Estimate</h3>
+                        <div class="estimate-actions">
+                            <button type="button" class="btn btn-secondary" id="download-pdf-btn">📄 Download PDF Quote</button>
+                            <button type="button" class="btn btn-primary" id="enroll-plan-btn">🔄 Enroll in Maintenance Plan</button>
+                        </div>
+                    </div>
                     <div class="estimate-range" id="estimate-range"></div>
                     <p id="estimate-details"></p>
+                    <div class="estimate-upsells" id="estimate-upsells">
+                        <h4>Enhance Your Service</h4>
+                        <div class="upsell-options">
+                            <label class="upsell-option">
+                                <input type="checkbox" name="upsell" value="odor-control" data-cost="500">
+                                <span class="upsell-content">
+                                    <strong>Advanced Odor Control System</strong>
+                                    <span class="upsell-price">+$500</span>
+                                    <small>Activated carbon filtration and air freshening system</small>
+                                </span>
+                            </label>
+                            <label class="upsell-option">
+                                <input type="checkbox" name="upsell" value="fire-rated" data-cost="800">
+                                <span class="upsell-content">
+                                    <strong>Premium Fire-Rated Doors</strong>
+                                    <span class="upsell-price">+$800</span>
+                                    <small>Enhanced safety with 2-hour fire rating upgrade</small>
+                                </span>
+                            </label>
+                            <label class="upsell-option">
+                                <input type="checkbox" name="upsell" value="priority-response" data-cost="300">
+                                <span class="upsell-content">
+                                    <strong>Priority Emergency Response</strong>
+                                    <span class="upsell-price">+$300/year</span>
+                                    <small>Guaranteed 2-hour response time</small>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="upsell-total">
+                            <strong>Total with Selected Options: <span id="total-estimate">$0</span></strong>
+                        </div>
+                    </div>
+                    <div class="maintenance-promotion">
+                        <div class="promotion-content">
+                            <h4>💰 Save with a Maintenance Plan</h4>
+                            <p>Customers with maintenance contracts save an average of <strong>25% annually</strong> compared to pay-per-service rates.</p>
+                            <div class="savings-comparison">
+                                <div class="comparison-item">
+                                    <span class="label">This Project + 2 Cleanings:</span>
+                                    <span class="price pay-per-service" id="payper-cost">$0</span>
+                                </div>
+                                <div class="comparison-item highlighted">
+                                    <span class="label">With Professional Plan:</span>
+                                    <span class="price with-plan" id="plan-cost">$0</span>
+                                    <span class="savings" id="plan-savings">Save $0</span>
+                                </div>
+                            </div>
+                            <a href="#maintenance" class="btn btn-secondary">View Maintenance Plans</a>
+                        </div>
+                    </div>
                     <small>*This is an approximate estimate. Final pricing may vary based on specific requirements, site conditions, and material choices. Contact us for a detailed quote.</small>
                 </div>
             </form>
@@ -2414,8 +2964,52 @@
     </footer>
 
     <!-- Sticky CTA -->
-    <div class="sticky-cta">
-        <a href="tel:+13125550123" class="btn btn-primary">Call Now</a>
+    <!-- Exit-Intent Modal -->
+    <div class="exit-intent-modal" id="exit-intent-modal">
+        <div class="modal-overlay" onclick="closeExitIntent()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeExitIntent()" aria-label="Close modal">✕</button>
+            <div class="modal-header">
+                <h3>Wait! Get Your Same-Day Estimate</h3>
+                <p>Don't leave without getting your FREE professional assessment</p>
+            </div>
+            <div class="modal-body">
+                <div class="urgency-offer">
+                    <div class="offer-badge">🚀 LIMITED TIME</div>
+                    <h4>Same-Day Site Visit Available</h4>
+                    <ul class="offer-benefits">
+                        <li>✅ Professional on-site assessment</li>
+                        <li>✅ Detailed written proposal</li>
+                        <li>✅ No obligation consultation</li>
+                        <li>✅ Expert recommendations</li>
+                    </ul>
+                </div>
+                <form class="exit-intent-form" id="exit-intent-form">
+                    <div class="form-row">
+                        <input type="text" name="exitName" placeholder="Your Name *" required>
+                        <input type="tel" name="exitPhone" placeholder="Phone Number *" required>
+                    </div>
+                    <input type="email" name="exitEmail" placeholder="Email Address *" required>
+                    <button type="submit" class="btn btn-primary modal-submit">
+                        📅 Schedule My Same-Day Visit
+                    </button>
+                    <p class="privacy-note">We respect your privacy. No spam, just helpful service information.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Sticky Mobile CTA Bar -->
+    <div class="sticky-cta" id="sticky-cta">
+        <div class="sticky-cta-content">
+            <a href="tel:+13125550123" class="btn btn-primary cta-call" onclick="trackEvent('click_call')">
+                📞 Call Now
+            </a>
+            <a href="#estimator" class="btn btn-secondary cta-estimate" onclick="trackEvent('click_estimate')">
+                💰 Get Estimate
+            </a>
+        </div>
+        <button class="sticky-cta-close" onclick="hideStickyCall()" aria-label="Close call bar">✕</button>
     </div>
 
     <!-- Toast Notification -->
@@ -2543,33 +3137,51 @@
             });
         }
 
-        // Enhanced Cost Estimator
+        // Enhanced Cost Estimator with Gating
         const costEstimator = document.getElementById('cost-estimator');
         const estimateResult = document.getElementById('estimate-result');
         const estimatorProgress = document.getElementById('estimator-progress');
         const estimateSummary = document.getElementById('estimate-summary');
         const summaryContent = document.getElementById('summary-content');
+        const estimatorGate = document.getElementById('estimator-gate');
 
         if (costEstimator) {
             const formInputs = costEstimator.querySelectorAll('select, input');
+            const projectInputs = costEstimator.querySelectorAll('#service-type, #building-type, #floors, #urgency');
+            const contactInputs = costEstimator.querySelectorAll('#estimator-name, #estimator-email');
             let completedSteps = 0;
+            let projectCompleted = false;
+            let contactRequired = false;
 
             // Progress tracking
             const updateProgress = () => {
+                const projectValues = Array.from(projectInputs).map(input => input.value.trim());
+                const projectCompletedNow = projectValues.every(val => val !== '');
+                
+                if (projectCompletedNow && !projectCompleted) {
+                    // Show the gate when project details are complete
+                    estimatorGate.style.display = 'block';
+                    estimatorGate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    contactRequired = true;
+                    projectCompleted = true;
+                }
+                
                 const values = Array.from(formInputs).map(input => input.value.trim());
                 completedSteps = values.filter(val => val !== '').length;
-                const percentage = (completedSteps / formInputs.length) * 100;
+                const totalSteps = contactRequired ? formInputs.length : projectInputs.length;
+                const percentage = (completedSteps / totalSteps) * 100;
                 
                 if (estimatorProgress) {
                     estimatorProgress.style.width = `${percentage}%`;
                 }
                 
-                // Update step circles
+                // Update step circles (now includes contact step)
+                const totalCircles = contactRequired ? 5 : 4;
                 document.querySelectorAll('.step-circle').forEach((circle, index) => {
                     circle.classList.remove('active', 'completed');
-                    if (index < completedSteps) {
+                    if (index < Math.floor(completedSteps * totalCircles / totalSteps)) {
                         circle.classList.add('completed');
-                    } else if (index === completedSteps) {
+                    } else if (index === Math.floor(completedSteps * totalCircles / totalSteps)) {
                         circle.classList.add('active');
                     }
                 });
@@ -2756,39 +3368,242 @@
                 const buildingType = formData.get('buildingType');
                 const floors = parseInt(formData.get('floors'));
                 const urgency = formData.get('urgency');
+                const name = formData.get('estimatorName');
+                const email = formData.get('estimatorEmail');
+                const consent = formData.get('estimator-consent');
                 
                 // Validate required fields
                 if (!serviceType || !buildingType || !floors || !urgency) {
-                    showToast('Please fill in all required fields', 'error');
+                    showToast('Please complete all project details first', 'error');
                     return;
                 }
                 
-                // Calculate estimate
-                const basePricing = pricing[serviceType];
-                const buildingMultiplier = buildingMultipliers[buildingType];
-                const urgencyMultiplier = basePricing[urgency] || 1.0;
+                // Validate contact information (gated requirement)
+                if (!name || !email) {
+                    showToast('Please provide your contact information to view your estimate', 'error');
+                    document.getElementById('estimator-gate').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
                 
-                const basePrice = basePricing.base + (basePricing.multiplier * floors);
-                const adjustedPrice = basePrice * buildingMultiplier * urgencyMultiplier;
+                if (!consent) {
+                    showToast('Please agree to receive your estimate and communications', 'error');
+                    return;
+                }
                 
-                const lowEnd = Math.round(adjustedPrice * 0.8);
-                const highEnd = Math.round(adjustedPrice * 1.2);
+                if (!isValidEmail(email)) {
+                    showToast('Please enter a valid email address', 'error');
+                    return;
+                }
                 
-                // Create confetti before showing result
-                createConfetti();
+                // Track conversion event
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'estimator_complete', {
+                        'service_type': serviceType,
+                        'building_type': buildingType,
+                        'floors': floors,
+                        'urgency': urgency
+                    });
+                }
                 
-                // Display result
-                estimateResult.innerHTML = `
-                    <div class="estimate-range">$${lowEnd.toLocaleString()} - $${highEnd.toLocaleString()}</div>
-                    <p>Estimate for ${serviceType} service on a ${floors}-floor ${buildingType} building${urgency === 'emergency' ? ' (Emergency pricing applies)' : ''}</p>
-                    <small>*This is an approximate estimate. Final pricing may vary based on specific requirements, site conditions, and material choices. Contact us for a detailed quote.</small>
-                `;
-                
-                estimateResult.classList.add('show');
-                
-                // Scroll to result
-                estimateResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                // Calculate estimate with enhanced features
+                calculateAndShowEstimate(serviceType, buildingType, floors, urgency, name, email);
             });
+        }
+        
+        // Calculate and display estimate with upsells
+        function calculateAndShowEstimate(serviceType, buildingType, floors, urgency, name, email) {
+            const basePricing = pricing[serviceType];
+            const buildingMultiplier = buildingMultipliers[buildingType];
+            const urgencyMultiplier = basePricing[urgency] || 1.0;
+            
+            const basePrice = basePricing.base + (basePricing.multiplier * floors);
+            const adjustedPrice = basePrice * buildingMultiplier * urgencyMultiplier;
+            
+            const lowEnd = Math.round(adjustedPrice * 0.8);
+            const highEnd = Math.round(adjustedPrice * 1.2);
+            
+            // Create confetti before showing result
+            createConfetti();
+            
+            // Display enhanced result with upsells
+            document.getElementById('estimate-range').textContent = `$${lowEnd.toLocaleString()} - $${highEnd.toLocaleString()}`;
+            document.getElementById('estimate-details').innerHTML = `
+                <strong>Hello ${name}!</strong><br>
+                Estimate for ${serviceType} service on a ${floors}-floor ${buildingType} building${urgency === 'emergency' ? ' (Emergency pricing applies)' : ''}
+            `;
+            
+            // Initialize upsell calculations
+            setupUpsellCalculations(lowEnd, highEnd);
+            
+            // Show maintenance plan savings
+            showMaintenanceSavings(adjustedPrice, serviceType);
+            
+            estimateResult.classList.add('show');
+            estimateResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Store lead information for PDF generation
+            window.leadData = {
+                name, email, 
+                phone: document.getElementById('estimator-phone')?.value || '',
+                company: document.getElementById('estimator-company')?.value || '',
+                serviceType, buildingType, floors, urgency,
+                baseEstimate: { lowEnd, highEnd },
+                timestamp: new Date().toISOString()
+            };
+        }
+        
+        // Setup upsell calculations
+        function setupUpsellCalculations(lowEnd, highEnd) {
+            const upsellCheckboxes = document.querySelectorAll('input[name="upsell"]');
+            const totalEstimateSpan = document.getElementById('total-estimate');
+            
+            function updateTotal() {
+                let additionalCost = 0;
+                upsellCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        additionalCost += parseInt(checkbox.dataset.cost);
+                    }
+                });
+                
+                const newLow = lowEnd + additionalCost;
+                const newHigh = highEnd + additionalCost;
+                totalEstimateSpan.textContent = `$${newLow.toLocaleString()} - $${newHigh.toLocaleString()}`;
+                
+                // Track upsell events
+                if (typeof gtag !== 'undefined' && additionalCost > 0) {
+                    gtag('event', 'upsell_selected', {
+                        'upsell_value': additionalCost
+                    });
+                }
+            }
+            
+            upsellCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateTotal);
+            });
+            
+            // Initialize total
+            updateTotal();
+        }
+        
+        // Show maintenance plan savings comparison
+        function showMaintenanceSavings(basePrice, serviceType) {
+            const payPerServiceCost = basePrice + (serviceType === 'cleaning' ? 600 : 800); // Add 2 cleanings
+            const professionalPlanCost = 599 + (basePrice * 0.85); // 15% discount on repairs
+            const savings = payPerServiceCost - professionalPlanCost;
+            
+            document.getElementById('payper-cost').textContent = `$${Math.round(payPerServiceCost).toLocaleString()}`;
+            document.getElementById('plan-cost').textContent = `$${Math.round(professionalPlanCost).toLocaleString()}`;
+            document.getElementById('plan-savings').textContent = `Save $${Math.round(savings).toLocaleString()}`;
+        }
+
+        // PDF Quote Generation and Action Handlers
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'download-pdf-btn') {
+                generatePDFQuote();
+            }
+            if (e.target.id === 'enroll-plan-btn') {
+                redirectToMaintenancePlans();
+            }
+        });
+        
+        function generatePDFQuote() {
+            if (!window.leadData) {
+                showToast('No quote data available', 'error');
+                return;
+            }
+            
+            // Track PDF download
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'pdf_download', {
+                    'lead_name': window.leadData.name,
+                    'service_type': window.leadData.serviceType
+                });
+            }
+            
+            // Create a detailed quote document (text format for now - replace with jsPDF)
+            const quoteData = `
+KOHLMAN CHUTES - PROFESSIONAL QUOTE
+
+Date: ${new Date().toLocaleDateString()}
+Quote #: KC-${Date.now()}
+
+Customer Information:
+Name: ${window.leadData.name}
+Email: ${window.leadData.email}
+Phone: ${window.leadData.phone || 'Not provided'}
+Company: ${window.leadData.company || 'N/A'}
+
+Project Details:
+Service Type: ${window.leadData.serviceType.charAt(0).toUpperCase() + window.leadData.serviceType.slice(1)}
+Building Type: ${window.leadData.buildingType.charAt(0).toUpperCase() + window.leadData.buildingType.slice(1)}
+Number of Floors: ${window.leadData.floors}
+Timeline: ${window.leadData.urgency.charAt(0).toUpperCase() + window.leadData.urgency.slice(1)}
+
+Estimated Cost: $${window.leadData.baseEstimate.lowEnd.toLocaleString()} - $${window.leadData.baseEstimate.highEnd.toLocaleString()}
+
+Additional Options Available:
+• Advanced Odor Control System: +$500
+• Premium Fire-Rated Doors: +$800  
+• Priority Emergency Response: +$300/year
+
+Maintenance Plan Savings:
+Save up to 25% annually with our Professional Maintenance Plan.
+
+Terms:
+• This quote is valid for 30 days
+• Final pricing may vary based on site conditions and specific requirements
+• All work performed by factory-trained, licensed technicians
+• Includes permits and code compliance documentation
+
+Next Steps:
+1. Schedule a free on-site consultation
+2. Receive detailed proposal with specifications
+3. Professional installation with minimal disruption
+
+Contact Information:
+Phone: (312) 555-0123
+Email: info@kohlmanchutes.com
+Web: www.kohlmanchutes.com
+
+Licensed & Insured | Code Compliant | 24/7 Emergency Service
+`;
+            
+            // Create and download quote file
+            const blob = new Blob([quoteData], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Kohlman-Chutes-Quote-${window.leadData.name.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showToast('Quote downloaded! Check your downloads folder.');
+        }
+        
+        function redirectToMaintenancePlans() {
+            // Track maintenance plan interest
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'maintenance_plan_interest', {
+                    'lead_name': window.leadData?.name || 'Anonymous'
+                });
+            }
+            
+            document.getElementById('maintenance').scrollIntoView({ behavior: 'smooth' });
+            
+            // Highlight the Professional plan (most popular)
+            setTimeout(() => {
+                const professionalPlan = document.querySelector('.plan-card.featured');
+                if (professionalPlan) {
+                    professionalPlan.style.transform = 'scale(1.05)';
+                    professionalPlan.style.boxShadow = '0 10px 30px rgba(30, 64, 175, 0.3)';
+                    setTimeout(() => {
+                        professionalPlan.style.transform = '';
+                        professionalPlan.style.boxShadow = '';
+                    }, 2000);
+                }
+            }, 500);
         }
 
 
@@ -2866,6 +3681,136 @@
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
+        }
+
+        // Analytics & Event Tracking
+        function trackEvent(eventName, parameters = {}) {
+            // Google Analytics 4 tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, parameters);
+            }
+            
+            // Console log for debugging (remove in production)
+            console.log('Event tracked:', eventName, parameters);
+        }
+        
+        // Sticky CTA Enhancement with Analytics
+        function hideStickyCall() {
+            const stickyCTA = document.getElementById('sticky-cta');
+            stickyCTA.classList.remove('show');
+            trackEvent('sticky_cta_closed');
+        }
+        
+        // Exit-Intent Detection
+        let exitIntentShown = false;
+        let mouseLeaveTimer;
+        
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY <= 0 && !exitIntentShown && window.scrollY > 500) {
+                clearTimeout(mouseLeaveTimer);
+                mouseLeaveTimer = setTimeout(showExitIntent, 300);
+            }
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            clearTimeout(mouseLeaveTimer);
+        });
+        
+        function showExitIntent() {
+            if (exitIntentShown) return;
+            
+            exitIntentShown = true;
+            const modal = document.getElementById('exit-intent-modal');
+            modal.classList.add('show');
+            
+            trackEvent('exit_intent_triggered');
+        }
+        
+        function closeExitIntent() {
+            const modal = document.getElementById('exit-intent-modal');
+            modal.classList.remove('show');
+            trackEvent('exit_intent_closed');
+        }
+        
+        // Exit-Intent Form Submission
+        document.getElementById('exit-intent-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const name = formData.get('exitName');
+            const phone = formData.get('exitPhone');
+            const email = formData.get('exitEmail');
+            
+            if (!name || !phone || !email) {
+                showToast('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showToast('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Track high-value conversion
+            trackEvent('same_day_visit_request', {
+                'lead_source': 'exit_intent',
+                'lead_name': name,
+                'lead_phone': phone,
+                'lead_email': email
+            });
+            
+            // Show success and close modal
+            showToast('Thank you! We\'ll call you within 2 hours to schedule your same-day visit.');
+            closeExitIntent();
+            
+            // Simulate form submission (replace with actual backend integration)
+            console.log('Exit-intent lead captured:', { name, phone, email });
+        });
+        
+        // Enhanced Sticky CTA with better mobile experience
+        const enhancedStickyCTA = document.getElementById('sticky-cta');
+        
+        if (enhancedStickyCTA) {
+            window.addEventListener('scroll', () => {
+                const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                
+                // Show after 15% scroll on mobile only
+                if (scrollPercentage > 15 && window.innerWidth < 768) {
+                    enhancedStickyCTA.classList.add('show');
+                    
+                    // Start wiggle interval if not already started
+                    if (!wiggleInterval) {
+                        wiggleInterval = setInterval(() => {
+                            enhancedStickyCTA.classList.add('wiggle');
+                            setTimeout(() => {
+                                enhancedStickyCTA.classList.remove('wiggle');
+                            }, 800);
+                        }, 25000); // Every 25 seconds
+                    }
+                } else {
+                    enhancedStickyCTA.classList.remove('show');
+                    if (wiggleInterval) {
+                        clearInterval(wiggleInterval);
+                        wiggleInterval = null;
+                    }
+                }
+                
+                // Hide when contact/estimate is visible
+                const contactSection = document.querySelector('#contact');
+                const estimatorSection = document.querySelector('#estimator');
+                
+                if (contactSection || estimatorSection) {
+                    const sections = [contactSection, estimatorSection].filter(Boolean);
+                    const isVisible = sections.some(section => {
+                        const rect = section.getBoundingClientRect();
+                        return rect.top < window.innerHeight && rect.bottom > 0;
+                    });
+                    
+                    if (isVisible) {
+                        enhancedStickyCTA.classList.remove('show');
+                    }
+                }
+            });
         }
 
         // Smooth scrolling for anchor links

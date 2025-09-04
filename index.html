@@ -269,6 +269,18 @@
             right: 2rem;
             z-index: 900;
             animation: slideUp 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-cta.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .sticky-cta.wiggle {
+            animation: wiggle 0.8s ease-in-out;
         }
         
         @keyframes slideUp {
@@ -282,13 +294,27 @@
             }
         }
         
+        @keyframes wiggle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-3px) rotate(-2deg); }
+            75% { transform: translateY(-3px) rotate(2deg); }
+        }
+        
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(-45deg, var(--primary), var(--primary-dark), #2563eb, var(--primary));
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             color: white;
             padding: 4rem 0;
             position: relative;
             overflow: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         .hero::before {
@@ -305,6 +331,40 @@
                 rgba(255, 255, 255, 0.05) 10px,
                 rgba(255, 255, 255, 0.05) 20px
             );
+        }
+        
+        /* Rotating value proposition */
+        .hero-value-prop {
+            display: inline-block;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .hero-value-rotating {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            height: 1.5em;
+            vertical-align: bottom;
+        }
+        
+        .hero-value-rotating span {
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transform: translateY(100%);
+            animation: rotateText 8s infinite;
+        }
+        
+        .hero-value-rotating span:nth-child(1) { animation-delay: 0s; }
+        .hero-value-rotating span:nth-child(2) { animation-delay: 2s; }
+        .hero-value-rotating span:nth-child(3) { animation-delay: 4s; }
+        .hero-value-rotating span:nth-child(4) { animation-delay: 6s; }
+        
+        @keyframes rotateText {
+            0%, 20% { opacity: 0; transform: translateY(100%); }
+            25%, 45% { opacity: 1; transform: translateY(0); }
+            50%, 100% { opacity: 0; transform: translateY(-100%); }
         }
         
         .hero-content {
@@ -358,12 +418,65 @@
             align-items: center;
             gap: 0.5rem;
             justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+        
+        .trust-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .trust-item:nth-child(1) { transition-delay: 0.1s; }
+        .trust-item:nth-child(2) { transition-delay: 0.2s; }
+        .trust-item:nth-child(3) { transition-delay: 0.3s; }
+        .trust-item:nth-child(4) { transition-delay: 0.4s; }
         
         .trust-icon {
             width: 24px;
             height: 24px;
             fill: var(--secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .trust-item:hover .trust-icon {
+            transform: scale(1.1);
+            fill: var(--primary);
+        }
+        
+        /* Pulse effect for special badges */
+        .trust-badge {
+            position: relative;
+        }
+        
+        .trust-badge::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.3);
+            }
         }
         
         /* Services Section */
@@ -383,12 +496,30 @@
             border: 1px solid var(--border);
             border-radius: var(--radius);
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+            z-index: 1;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
         }
         
         .service-card:hover {
             box-shadow: var(--shadow-lg);
-            transform: translateY(-4px);
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--primary);
         }
         
         .service-header {
@@ -398,25 +529,39 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .service-header:hover {
+            background: rgba(30, 64, 175, 0.05);
         }
         
         .service-header h3 {
             margin: 0;
             color: var(--primary);
+            transition: color 0.3s ease;
+        }
+        
+        .service-card:hover .service-header h3 {
+            color: var(--primary-dark);
         }
         
         .expand-icon {
-            transition: transform 0.3s;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: var(--primary);
         }
         
         .service-card.expanded .expand-icon {
-            transform: rotate(180deg);
+            transform: rotate(180deg) scale(1.1);
+            color: var(--secondary);
         }
         
         .service-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .service-card.expanded .service-content {
@@ -459,10 +604,92 @@
             box-shadow: var(--shadow);
             max-width: 600px;
             margin: 0 auto;
+            position: relative;
+        }
+        
+        /* Progress bar for estimator */
+        .estimator-progress {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-gray);
+            border-radius: 3px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .estimator-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .estimator-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .estimator-step {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .step-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .step-circle.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .step-circle.completed {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Dynamic summary card */
+        .estimate-summary {
+            background: var(--bg-gray);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        
+        .estimate-summary.show {
+            opacity: 1;
+            transform: translateY(0);
+            border-color: var(--primary);
+            background: rgba(30, 64, 175, 0.05);
+        }
+        
+        .summary-content {
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.5;
         }
         
         .form-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
         
         .form-group label {
@@ -479,7 +706,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius);
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
         }
         
         .form-group select:focus,
@@ -487,24 +714,80 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+            transform: translateY(-1px);
         }
         
         .form-group input.error {
             border-color: #ef4444;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
         
         .estimate-result {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
             color: white;
-            padding: 1.5rem;
+            padding: 2rem;
             border-radius: var(--radius);
             margin-top: 1.5rem;
             display: none;
+            position: relative;
+            overflow: hidden;
         }
         
         .estimate-result.show {
             display: block;
-            animation: fadeIn 0.5s;
+            animation: fadeInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.9); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+        
+        /* Confetti effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            animation: confetti-fall 3s linear infinite;
+        }
+        
+        .confetti:nth-child(odd) {
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .confetti:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .confetti:nth-child(2) { left: 20%; animation-delay: 0.2s; }
+        .confetti:nth-child(3) { left: 30%; animation-delay: 0.4s; }
+        .confetti:nth-child(4) { left: 40%; animation-delay: 0.6s; }
+        .confetti:nth-child(5) { left: 50%; animation-delay: 0.8s; }
+        .confetti:nth-child(6) { left: 60%; animation-delay: 1s; }
+        .confetti:nth-child(7) { left: 70%; animation-delay: 1.2s; }
+        .confetti:nth-child(8) { left: 80%; animation-delay: 1.4s; }
+        .confetti:nth-child(9) { left: 90%; animation-delay: 1.6s; }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
         
         @keyframes fadeIn {
@@ -592,12 +875,71 @@
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             clip-path: inset(0 0 0 50%);
-            transition: clip-path 0.3s;
+            transition: clip-path 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        /* Slider handle enhancement */
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: white;
+            transform: translateX(-50%);
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        
+        .slider-handle::before {
+            content: '⟷';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        
+        /* Percentage display */
+        .slider-percentage {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 10;
+        }
+        
+        .slider-labels {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .slider-control {
             width: 100%;
             margin-top: 1rem;
+            position: relative;
         }
         
         .slider-input {
@@ -607,40 +949,78 @@
             appearance: none;
             background: transparent;
             cursor: pointer;
+            position: relative;
+            z-index: 5;
         }
         
         .slider-input::-webkit-slider-track {
-            background: var(--border);
-            height: 4px;
-            border-radius: 2px;
+            background: linear-gradient(to right, var(--border) 0%, var(--primary) 25%, var(--secondary) 50%, var(--primary) 75%, var(--border) 100%);
+            height: 6px;
+            border-radius: 3px;
         }
         
         .slider-input::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             background: var(--primary);
+            border: 3px solid white;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.2s ease;
+        }
+        
+        .slider-input::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
         }
         
         .slider-input::-moz-range-track {
-            background: var(--border);
-            height: 4px;
-            border-radius: 2px;
+            background: linear-gradient(to right, var(--border) 0%, var(--primary) 25%, var(--secondary) 50%, var(--primary) 75%, var(--border) 100%);
+            height: 6px;
+            border-radius: 3px;
         }
         
         .slider-input::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             background: var(--primary);
+            border: 3px solid white;
             border-radius: 50%;
             cursor: pointer;
-            border: none;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.2s ease;
         }
+        
+        .slider-input::-moz-range-thumb:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Snap point indicators */
+        .slider-snap-points {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        
+        .snap-point {
+            position: absolute;
+            width: 3px;
+            height: 12px;
+            background: var(--primary);
+            top: -5px;
+            border-radius: 2px;
+        }
+        
+        .snap-point:nth-child(1) { left: 25%; }
+        .snap-point:nth-child(2) { left: 50%; }
+        .snap-point:nth-child(3) { left: 75%; }
         
         /* Industries */
         .industries {
@@ -821,7 +1201,11 @@
         
         .testimonial-track {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .testimonial-track:hover {
+            animation-play-state: paused;
         }
         
         .testimonial {
@@ -830,6 +1214,58 @@
             background: white;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 64, 175, 0.05), transparent);
+            transition: left 0.8s ease;
+        }
+        
+        .testimonial:hover::before {
+            left: 100%;
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-info {
+            flex: 1;
+        }
+        
+        .testimonial-stars {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .star {
+            color: #fbbf24;
+            font-size: 16px;
         }
         
         .testimonial-text {
@@ -837,16 +1273,32 @@
             font-style: italic;
             margin-bottom: 1rem;
             line-height: 1.8;
+            position: relative;
+            z-index: 1;
         }
         
         .testimonial-author {
             font-weight: 600;
             color: var(--primary);
+            position: relative;
+            z-index: 1;
         }
         
         .testimonial-role {
             color: var(--text-light);
             font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-company {
+            display: inline-block;
+            background: var(--bg-gray);
+            color: var(--text-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
         }
         
         .carousel-controls {
@@ -1029,6 +1481,104 @@
             to { transform: rotate(360deg); }
         }
         
+        /* Scroll-triggered animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Parallax hero background */
+        .hero-parallax {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Enhanced button interactions */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+            z-index: 0;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn span, .btn .btn-text {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Sparkle effect for special buttons */
+        .btn-sparkle {
+            position: relative;
+        }
+        
+        .btn-sparkle::after {
+            content: '✨';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 12px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .btn-sparkle:hover::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-buttons {
@@ -1173,10 +1723,10 @@
         <div class="container">
             <div class="hero-content">
                 <h1>Professional Garbage Chute Services in Chicago & Midwest</h1>
-                <p>Expert installation, repair, cleaning & maintenance for multi-story buildings. Factory-trained technicians, code-compliant systems, and 24/7 emergency service.</p>
+                <p>Expert <span class="hero-value-prop"><span class="hero-value-rotating"><span>installation</span><span>repair</span><span>cleaning</span><span>maintenance</span></span></span> for multi-story buildings. Factory-trained technicians, code-compliant systems, and 24/7 emergency service.</p>
                 
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Get Free Quote</a>
+                    <a href="#contact" class="btn btn-primary btn-sparkle">Get Free Quote</a>
                     <a href="tel:+13125550123" class="btn btn-secondary">Call (312) 555-0123</a>
                 </div>
             </div>
@@ -1188,7 +1738,7 @@
         <div class="container">
             <div class="trust-items">
                 <div class="trust-item">
-                    <svg class="trust-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <svg class="trust-icon trust-badge" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 2L2 7V10C2 16 6 20.9 12 22C18 20.9 22 16 22 10V7L12 2Z"/>
                     </svg>
                     <span>Licensed & Insured</span>
@@ -1202,7 +1752,7 @@
                 </div>
                 
                 <div class="trust-item">
-                    <svg class="trust-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <svg class="trust-icon trust-badge" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 2L2 7V10C2 16 6 20.9 12 22C18 20.9 22 16 22 10V7L12 2Z"/>
                     </svg>
                     <span>Code Compliant</span>
@@ -1221,11 +1771,11 @@
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
-            <h2>Complete Garbage Chute Solutions</h2>
-            <p>From installation to maintenance, we provide comprehensive chute services for all building types.</p>
+            <h2 class="fade-in">Complete Garbage Chute Solutions</h2>
+            <p class="fade-in">From installation to maintenance, we provide comprehensive chute services for all building types.</p>
             
             <div class="service-cards">
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-header" tabindex="0" role="button" aria-expanded="false">
                         <h3>Chute Installation</h3>
                         <span class="expand-icon">▼</span>
@@ -1311,10 +1861,33 @@
     <!-- Cost Estimator -->
     <section id="estimator" class="estimator">
         <div class="container">
-            <h2>Get Your Instant Cost Estimate</h2>
-            <p>Use our calculator to get an approximate cost for your garbage chute project.</p>
+            <h2 class="fade-in">Get Your Instant Cost Estimate</h2>
+            <p class="fade-in">Use our calculator to get an approximate cost for your garbage chute project.</p>
             
-            <form class="estimator-form" id="cost-estimator" novalidate>
+            <form class="estimator-form fade-in" id="cost-estimator" novalidate>
+                <div class="estimator-steps">
+                    <div class="estimator-step">
+                        <div class="step-circle active" data-step="1">1</div>
+                        <span>Service</span>
+                    </div>
+                    <div class="estimator-step">
+                        <div class="step-circle" data-step="2">2</div>
+                        <span>Building</span>
+                    </div>
+                    <div class="estimator-step">
+                        <div class="step-circle" data-step="3">3</div>
+                        <span>Details</span>
+                    </div>
+                    <div class="estimator-step">
+                        <div class="step-circle" data-step="4">4</div>
+                        <span>Timeline</span>
+                    </div>
+                </div>
+                
+                <div class="estimator-progress">
+                    <div class="estimator-progress-bar" id="estimator-progress"></div>
+                </div>
+                
                 <div class="form-group">
                     <label for="service-type">Service Type</label>
                     <select id="service-type" name="serviceType" required>
@@ -1352,6 +1925,12 @@
                         <option value="standard">Standard (2-4 weeks)</option>
                         <option value="planned">Planned (1+ months)</option>
                     </select>
+                </div>
+                
+                <div class="estimate-summary" id="estimate-summary">
+                    <div class="summary-content" id="summary-content">
+                        Complete the form above to see your project summary
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Calculate Estimate</button>
@@ -1402,15 +1981,26 @@
     <!-- Before/After Slider -->
     <section class="before-after">
         <div class="container">
-            <h2>See the Difference</h2>
-            <p>Professional restoration brings chutes back to like-new condition.</p>
+            <h2 class="fade-in">See the Difference</h2>
+            <p class="fade-in">Professional restoration brings chutes back to like-new condition.</p>
             
-            <div class="slider-container">
+            <div class="slider-container fade-in">
                 <div class="slider-images">
                     <div class="before-image">BEFORE: Worn & Damaged</div>
                     <div class="after-image" id="after-image">AFTER: Restored & Clean</div>
+                    <div class="slider-handle" id="slider-handle"></div>
+                    <div class="slider-percentage" id="slider-percentage">50% After</div>
+                    <div class="slider-labels">
+                        <span>Before</span>
+                        <span>After</span>
+                    </div>
                 </div>
                 <div class="slider-control">
+                    <div class="slider-snap-points">
+                        <div class="snap-point"></div>
+                        <div class="snap-point"></div>
+                        <div class="snap-point"></div>
+                    </div>
                     <input type="range" class="slider-input" id="slider" min="0" max="100" value="50" aria-label="Before and after comparison slider">
                 </div>
             </div>
@@ -1574,32 +2164,71 @@
     <!-- Testimonials -->
     <section class="testimonials">
         <div class="container">
-            <h2>What Our Customers Say</h2>
+            <h2 class="fade-in">What Our Customers Say</h2>
             
-            <div class="testimonial-carousel">
+            <div class="testimonial-carousel fade-in">
                 <div class="testimonial-track" id="testimonial-track">
                     <div class="testimonial">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">SJ</div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-stars">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <div class="testimonial-author">Sarah Johnson</div>
+                                <div class="testimonial-role">Property Manager</div>
+                            </div>
+                        </div>
                         <div class="testimonial-text">
                             "Kohlman Chutes saved us thousands on our building renovation. Their expertise in retrofitting older buildings is unmatched, and the installation was completed ahead of schedule."
                         </div>
-                        <div class="testimonial-author">Sarah Johnson</div>
-                        <div class="testimonial-role">Property Manager, Historic District</div>
+                        <div class="testimonial-company">Historic District</div>
                     </div>
                     
                     <div class="testimonial">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">MC</div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-stars">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <div class="testimonial-author">Mike Chen</div>
+                                <div class="testimonial-role">Hotel Operations Manager</div>
+                            </div>
+                        </div>
                         <div class="testimonial-text">
                             "When our chute failed during peak season, their emergency response team had us back up and running in under 4 hours. Professional, efficient, and fairly priced."
                         </div>
-                        <div class="testimonial-author">Mike Chen</div>
-                        <div class="testimonial-role">Hotel Operations Manager</div>
+                        <div class="testimonial-company">Downtown Hotel</div>
                     </div>
                     
                     <div class="testimonial">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">JM</div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-stars">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <div class="testimonial-author">Jennifer Martinez</div>
+                                <div class="testimonial-role">Apartment Complex Owner</div>
+                            </div>
+                        </div>
                         <div class="testimonial-text">
                             "The maintenance program has eliminated all our chute-related headaches. Regular service keeps everything running smoothly and our residents happy."
                         </div>
-                        <div class="testimonial-author">Jennifer Martinez</div>
-                        <div class="testimonial-role">Apartment Complex Owner</div>
+                        <div class="testimonial-company">Riverside Apartments</div>
                     </div>
                 </div>
                 
@@ -1754,6 +2383,265 @@
 
     <!-- JavaScript -->
     <script>
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const animateObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    animateObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            animateObserver.observe(el);
+        });
+
+        // Trust bar sequential animation
+        const trustObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const trustItems = entry.target.querySelectorAll('.trust-item');
+                    trustItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add('animate');
+                        }, index * 150);
+                    });
+                    trustObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const trustBar = document.querySelector('.trust-bar');
+        if (trustBar) {
+            trustObserver.observe(trustBar);
+        }
+
+        // Enhanced Before/After Slider
+        const slider = document.getElementById('slider');
+        const afterImage = document.getElementById('after-image');
+        const sliderHandle = document.getElementById('slider-handle');
+        const sliderPercentage = document.getElementById('slider-percentage');
+
+        if (slider && afterImage && sliderHandle && sliderPercentage) {
+            slider.addEventListener('input', (e) => {
+                const value = e.target.value;
+                afterImage.style.clipPath = `inset(0 0 0 ${value}%)`;
+                sliderHandle.style.left = `${value}%`;
+                sliderPercentage.textContent = `${value}% After`;
+                
+                // Snap to points
+                const snapPoints = [0, 25, 50, 75, 100];
+                const closest = snapPoints.reduce((prev, curr) => 
+                    Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+                );
+                
+                if (Math.abs(closest - value) < 3) {
+                    slider.value = closest;
+                    afterImage.style.clipPath = `inset(0 0 0 ${closest}%)`;
+                    sliderHandle.style.left = `${closest}%`;
+                    sliderPercentage.textContent = `${closest}% After`;
+                    
+                    // Haptic feedback simulation
+                    if (navigator.vibrate) {
+                        navigator.vibrate(50);
+                    }
+                }
+            });
+        }
+
+        // Sticky CTA functionality
+        const stickyCTA = document.querySelector('.sticky-cta');
+        let wiggleInterval;
+
+        if (stickyCTA) {
+            window.addEventListener('scroll', () => {
+                const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                
+                // Show after 20% scroll
+                if (scrollPercentage > 20) {
+                    stickyCTA.classList.add('show');
+                    
+                    // Start wiggle interval if not already started
+                    if (!wiggleInterval) {
+                        wiggleInterval = setInterval(() => {
+                            stickyCTA.classList.add('wiggle');
+                            setTimeout(() => {
+                                stickyCTA.classList.remove('wiggle');
+                            }, 800);
+                        }, 20000); // Every 20 seconds
+                    }
+                } else {
+                    stickyCTA.classList.remove('show');
+                    if (wiggleInterval) {
+                        clearInterval(wiggleInterval);
+                        wiggleInterval = null;
+                    }
+                }
+                
+                // Hide when contact/estimate is visible
+                const contactSection = document.querySelector('#contact');
+                const estimatorSection = document.querySelector('#estimator');
+                
+                if (contactSection || estimatorSection) {
+                    const sections = [contactSection, estimatorSection].filter(Boolean);
+                    const isVisible = sections.some(section => {
+                        const rect = section.getBoundingClientRect();
+                        return rect.top < window.innerHeight && rect.bottom > 0;
+                    });
+                    
+                    if (isVisible) {
+                        stickyCTA.classList.remove('show');
+                    }
+                }
+            });
+        }
+
+        // Enhanced Cost Estimator
+        const costEstimator = document.getElementById('cost-estimator');
+        const estimateResult = document.getElementById('estimate-result');
+        const estimatorProgress = document.getElementById('estimator-progress');
+        const estimateSummary = document.getElementById('estimate-summary');
+        const summaryContent = document.getElementById('summary-content');
+
+        if (costEstimator) {
+            const formInputs = costEstimator.querySelectorAll('select, input');
+            let completedSteps = 0;
+
+            // Progress tracking
+            const updateProgress = () => {
+                const values = Array.from(formInputs).map(input => input.value.trim());
+                completedSteps = values.filter(val => val !== '').length;
+                const percentage = (completedSteps / formInputs.length) * 100;
+                
+                if (estimatorProgress) {
+                    estimatorProgress.style.width = `${percentage}%`;
+                }
+                
+                // Update step circles
+                document.querySelectorAll('.step-circle').forEach((circle, index) => {
+                    circle.classList.remove('active', 'completed');
+                    if (index < completedSteps) {
+                        circle.classList.add('completed');
+                    } else if (index === completedSteps) {
+                        circle.classList.add('active');
+                    }
+                });
+                
+                // Update summary
+                updateSummary();
+            };
+
+            // Dynamic summary update
+            const updateSummary = () => {
+                const serviceType = document.getElementById('service-type')?.value;
+                const buildingType = document.getElementById('building-type')?.value;
+                const floors = document.getElementById('floors')?.value;
+                const urgency = document.getElementById('urgency')?.value;
+                
+                if (serviceType || buildingType || floors || urgency) {
+                    const parts = [];
+                    if (floors) parts.push(`${floors} floors`);
+                    if (buildingType) parts.push(buildingType.charAt(0).toUpperCase() + buildingType.slice(1));
+                    if (urgency) parts.push(urgency.charAt(0).toUpperCase() + urgency.slice(1));
+                    if (serviceType) parts.push(serviceType.charAt(0).toUpperCase() + serviceType.slice(1));
+                    
+                    if (parts.length > 0) {
+                        summaryContent.textContent = parts.join(' • ');
+                        estimateSummary.classList.add('show');
+                    }
+                } else {
+                    estimateSummary.classList.remove('show');
+                }
+            };
+
+            formInputs.forEach(input => {
+                input.addEventListener('change', updateProgress);
+                input.addEventListener('input', updateProgress);
+            });
+
+            // Initial progress update
+            updateProgress();
+        }
+
+        // Confetti animation for estimate result
+        const createConfetti = () => {
+            const confettiContainer = estimateResult;
+            for (let i = 0; i < 9; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confettiContainer.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }, 3000);
+            }
+        };
+
+        // Enhanced testimonial carousel with pause on hover
+        let currentTestimonial = 0;
+        const testimonialTrack = document.getElementById('testimonial-track');
+        const testimonials = document.querySelectorAll('.testimonial');
+        const totalTestimonials = testimonials.length;
+        let autoRotateInterval;
+
+        const showTestimonial = (index) => {
+            const offset = -index * 100;
+            if (testimonialTrack) {
+                testimonialTrack.style.transform = `translateX(${offset}%)`;
+            }
+        };
+
+        const startAutoRotate = () => {
+            autoRotateInterval = setInterval(() => {
+                currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+                showTestimonial(currentTestimonial);
+            }, 5000);
+        };
+
+        const stopAutoRotate = () => {
+            if (autoRotateInterval) {
+                clearInterval(autoRotateInterval);
+                autoRotateInterval = null;
+            }
+        };
+
+        // Testimonial controls
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+                showTestimonial(currentTestimonial);
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+                showTestimonial(currentTestimonial);
+            });
+        }
+
+        // Pause on hover
+        if (testimonialTrack) {
+            testimonialTrack.addEventListener('mouseenter', stopAutoRotate);
+            testimonialTrack.addEventListener('mouseleave', startAutoRotate);
+            
+            // Start auto-rotation
+            startAutoRotate();
+        }
+
         // Mobile menu functionality
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const mobileMenu = document.querySelector('.mobile-menu');
@@ -1803,10 +2691,7 @@
             });
         });
 
-        // Cost Estimator
-        const costEstimator = document.getElementById('cost-estimator');
-        const estimateResult = document.getElementById('estimate-result');
-        
+        // Cost Estimator pricing and submit handler
         const pricing = {
             installation: { base: 5000, multiplier: 500, emergency: 1.5, urgent: 1.2 },
             repair: { base: 800, multiplier: 100, emergency: 2.0, urgent: 1.3 },
@@ -1821,54 +2706,52 @@
             office: 1.1,
             mixed: 1.3
         };
-        
-        costEstimator.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(costEstimator);
-            const serviceType = formData.get('serviceType');
-            const buildingType = formData.get('buildingType');
-            const floors = parseInt(formData.get('floors'));
-            const urgency = formData.get('urgency');
-            
-            // Validate required fields
-            if (!serviceType || !buildingType || !floors || !urgency) {
-                showToast('Please fill in all required fields', 'error');
-                return;
-            }
-            
-            // Calculate estimate
-            const basePricing = pricing[serviceType];
-            const buildingMultiplier = buildingMultipliers[buildingType];
-            const urgencyMultiplier = basePricing[urgency] || 1.0;
-            
-            const basePrice = basePricing.base + (basePricing.multiplier * floors);
-            const adjustedPrice = basePrice * buildingMultiplier * urgencyMultiplier;
-            
-            const lowEnd = Math.round(adjustedPrice * 0.8);
-            const highEnd = Math.round(adjustedPrice * 1.2);
-            
-            // Display result
-            document.getElementById('estimate-range').textContent = `$${lowEnd.toLocaleString()} - $${highEnd.toLocaleString()}`;
-            
-            let details = `Estimate for ${serviceType} service on a ${floors}-floor ${buildingType} building`;
-            if (urgency === 'emergency') details += ' (Emergency pricing applies)';
-            
-            document.getElementById('estimate-details').textContent = details;
-            estimateResult.classList.add('show');
-            
-            // Scroll to result
-            estimateResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        });
 
-        // Before/After Slider
-        const slider = document.getElementById('slider');
-        const afterImage = document.getElementById('after-image');
-        
-        slider.addEventListener('input', (e) => {
-            const value = e.target.value;
-            afterImage.style.clipPath = `inset(0 0 0 ${value}%)`;
-        });
+        if (costEstimator) {
+            costEstimator.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(costEstimator);
+                const serviceType = formData.get('serviceType');
+                const buildingType = formData.get('buildingType');
+                const floors = parseInt(formData.get('floors'));
+                const urgency = formData.get('urgency');
+                
+                // Validate required fields
+                if (!serviceType || !buildingType || !floors || !urgency) {
+                    showToast('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                // Calculate estimate
+                const basePricing = pricing[serviceType];
+                const buildingMultiplier = buildingMultipliers[buildingType];
+                const urgencyMultiplier = basePricing[urgency] || 1.0;
+                
+                const basePrice = basePricing.base + (basePricing.multiplier * floors);
+                const adjustedPrice = basePrice * buildingMultiplier * urgencyMultiplier;
+                
+                const lowEnd = Math.round(adjustedPrice * 0.8);
+                const highEnd = Math.round(adjustedPrice * 1.2);
+                
+                // Create confetti before showing result
+                createConfetti();
+                
+                // Display result
+                estimateResult.innerHTML = `
+                    <div class="estimate-range">$${lowEnd.toLocaleString()} - $${highEnd.toLocaleString()}</div>
+                    <p>Estimate for ${serviceType} service on a ${floors}-floor ${buildingType} building${urgency === 'emergency' ? ' (Emergency pricing applies)' : ''}</p>
+                    <small>*This is an approximate estimate. Final pricing may vary based on specific requirements, site conditions, and material choices. Contact us for a detailed quote.</small>
+                `;
+                
+                estimateResult.classList.add('show');
+                
+                // Scroll to result
+                estimateResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        }
+
+
 
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
@@ -1891,33 +2774,6 @@
                 question.querySelector('span').textContent = isActive ? '+' : '−';
             });
         });
-
-        // Testimonial Carousel
-        let currentTestimonial = 0;
-        const testimonialTrack = document.getElementById('testimonial-track');
-        const testimonials = document.querySelectorAll('.testimonial');
-        const totalTestimonials = testimonials.length;
-        
-        function showTestimonial(index) {
-            const offset = -index * 100;
-            testimonialTrack.style.transform = `translateX(${offset}%)`;
-        }
-        
-        document.getElementById('prev-btn').addEventListener('click', () => {
-            currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
-            showTestimonial(currentTestimonial);
-        });
-        
-        document.getElementById('next-btn').addEventListener('click', () => {
-            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-            showTestimonial(currentTestimonial);
-        });
-        
-        // Auto-rotate testimonials
-        setInterval(() => {
-            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-            showTestimonial(currentTestimonial);
-        }, 5000);
 
         // Contact Form
         const contactForm = document.getElementById('contact-form');

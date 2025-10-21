@@ -1,0 +1,90 @@
+{
+  "name": "Diagnostic",
+  "type": "object",
+  "properties": {
+    "vehicle_id": {
+      "type": "string",
+      "description": "Reference to Vehicle entity"
+    },
+    "symptoms": {
+      "type": "string",
+      "description": "User-described symptoms"
+    },
+    "symptom_images": {
+      "type": "array",
+      "description": "Photos of issues",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audio_notes": {
+      "type": "array",
+      "description": "Audio recordings of sounds",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trouble_codes": {
+      "type": "array",
+      "description": "OBD-II diagnostic codes",
+      "items": {
+        "type": "string"
+      }
+    },
+    "diagnosis": {
+      "type": "string",
+      "description": "AI-generated diagnosis from DeepSeek V3"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["immediate", "soon", "routine", "monitor"],
+      "description": "Urgency level determined by DeepSeek V3"
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "Diagnostic confidence percentage from DeepSeek V3"
+    },
+    "estimated_cost_min": {
+      "type": "number",
+      "description": "Minimum repair cost estimate"
+    },
+    "estimated_cost_max": {
+      "type": "number",
+      "description": "Maximum repair cost estimate"
+    },
+    "recommendations": {
+      "type": "array",
+      "description": "Repair recommendations from DeepSeek V3",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string"
+          },
+          "diy_possible": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "affected_components": {
+      "type": "array",
+      "description": "Vehicle components affected (identified by DeepSeek V3)",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "diagnosed", "in_repair", "resolved"],
+      "default": "pending"
+    }
+  },
+  "required": ["vehicle_id", "symptoms"]
+}

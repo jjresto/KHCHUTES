@@ -1,0 +1,39 @@
+{
+  "name": "Vehicle",
+  "type": "object",
+  "properties": {
+    "make": {
+      "type": "string",
+      "description": "Vehicle manufacturer"
+    },
+    "model": {
+      "type": "string",
+      "description": "Vehicle model"
+    },
+    "year": {
+      "type": "integer",
+      "description": "Manufacturing year"
+    },
+    "vin": {
+      "type": "string",
+      "description": "Vehicle Identification Number"
+    },
+    "engine_type": {
+      "type": "string",
+      "description": "Engine specifications"
+    },
+    "mileage": {
+      "type": "number",
+      "description": "Current odometer reading"
+    },
+    "nickname": {
+      "type": "string",
+      "description": "User-friendly name for the vehicle"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Photo of the vehicle"
+    }
+  },
+  "required": ["make", "model", "year"]
+}
